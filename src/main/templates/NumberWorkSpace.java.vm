@@ -1,3 +1,4 @@
+
 /**
  * GPL Example
  * Runtime variability and monolithic implementation
@@ -15,7 +16,7 @@ public class NumberWorkSpace extends WorkSpace {
 
 	public void preVisitAction(Vertex v) {
 		// This assigns the values on the way in
-	    if (v.visited!=true)
+	    if (!v.visited)
 	            v.VertexNumber = vertexCounter++;
 	}
 

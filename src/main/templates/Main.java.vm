@@ -1,0 +1,171 @@
+/**
+* GPL Example
+* Runtime variability and monolithic implementation
+* @author Roberto E. Lopez-Herrejon
+* ETS-LOGTI
+*/
+
+import java.io.*;
+
+/**
+ * Main class for GPL example
+ * @author Roberto E. Lopez-Herrejon
+ * @feature Pro
+ */
+public class Main {
+    // ***********************************************************************
+    // Definition of variables to indicate that a feature is selected or not
+    // Core features, initialized to false because they must be set nonetheless in the configuration input/file
+
+    /** Definition of arguments
+     * [0] Name of Benchmark file
+     * [1] Name of starting vertex, ex.  v0
+     * [2] ... names of features that are selected for execution
+     */
+    public static void main(String[] args) {
+        // Step 0: Verify consistency of product configuration
+        displayConfigurationValues();
+        ;
+        // @DEBUG
+        System.out.println("Well formed configuration");
+        // System.exit(0);
+//    	// @DEBUG
+//    	// Finding the path
+//    	File f = new File("./src/main/graphs");
+//    	for (File file: f.listFiles()) {
+//    		System.out.println("File in directory " + file.getName());
+//    	}
+        // Step 1: create graph object
+        Graph g = new Graph();
+//      Graph gaux = new  Graph();
+        // Step 2: sets up the benchmark file to read
+        g.openBenchmark(args[0]);
+        // Step 3: reads number of vertices, number of edges and weights
+        int num_vertices = 0;
+        int num_edges    = 0;
+        try {
+            num_vertices = g.readNumber();
+            num_edges = g.readNumber();
+            // ignores the additional description files
+            g.readNumber();   // undirected, directed
+            g.readNumber();   // self loops
+            g.readNumber();   // unique
+        } catch (IOException e) {
+            System.out.println("Error while reading benchmark file configuration values");
+            System.exit(0);
+        }
+        // @DEBUG
+        System.out.println("Benchmark file read");
+        // Step 4: reserves space for vertices, edges and weights
+        Vertex[] V             = new Vertex[num_vertices];
+        int[]    startVertices = new int[num_edges];
+        int[]    endVertices   = new int[num_edges];
+        // @feature WEIGHTED selected
+        #if($WEIGHTED)
+            int[] weights = new int[num_edges];
+        #end
+
+        // Step 5: creates the vertices objects
+        int i = 0;
+        for (i = 0; i < num_vertices; i++) {
+            V[i] = new Vertex().assignName("v" + i);
+            g.addVertex(V[i]);
+        }
+        // Step 6: reads the edges
+        try {
+            for (i = 0; i < num_edges; i++) {
+                startVertices[i] = g.readNumber();
+                endVertices[i] = g.readNumber();
+            }
+        } catch (IOException e) {
+            System.out.println("Error while reading the edges");
+            System.exit(0);
+        }
+        // @feature WEIGHTED selected
+        // Step 7: reads the weights
+        #if($WEIGHTED)
+            try {
+                for (i = 0; i < num_edges; i++)
+                    weights[i] = g.readNumber();
+            } catch (IOException e) {
+                System.out.println("Error while reading the weigths");
+                System.exit(0);
+            }
+        #end
+
+        // ----
+        // Stops the benchmark reading
+        g.stopBenchmark();
+        // Step 8: Adds the edges
+        for (i = 0; i < num_edges; i++) {
+            //@feature WEIGHTED selected or not
+            #if($WEIGHTED)
+                g.addAnEdge(V[startVertices[i]], V[endVertices[i]], weights[i]);
+            #else
+                g.addAnEdge(V[startVertices[i]], V[endVertices[i]]);
+            #end
+        }
+        // Executes the selected features
+        Graph.startProfile();
+        g.run(g.findsVertex(args[1]));
+        Graph.stopProfile();
+        g.display();
+        Graph.resumeProfile();
+        // End profiling
+        Graph.endProfile();
+    } // main
+
+
+    /**
+     * Shows the names of the selected features
+     */
+    private static void displayConfigurationValues() {
+        StringBuffer configuration = new StringBuffer();
+        #if($GPL)
+            configuration.append("GPL ");
+        #end
+        #if($PROG)
+            configuration.append("PROG ");
+        #end
+        #if($BENCH)
+            configuration.append("BENCH ");
+        #end
+        #if($UNDIRECTED)
+            configuration.append("UNDIRECTED ");
+        #end
+        #if($DIRECTED)
+            configuration.append("DIRECTED ");
+        #end
+        #if($WEIGHTED)
+            configuration.append("WEIGHTED ");
+        #end
+        #if($DFS)
+            configuration.append("DFS ");
+        #end
+        #if($BFS)
+            configuration.append("BFS ");
+        #end
+        #if($NUMBER)
+            configuration.append("NUMBER ");
+        #end
+        #if($CYCLE)
+            configuration.append("CYCLE ");
+        #end
+        #if($CONNECTED)
+            configuration.append("CONNECTED ");
+        #end
+        #if($STRONGLYCONNECTED)
+            configuration.append("STRONGLYCONNECTED ");
+        #end
+        #if($MSTPRIM)
+            configuration.append("MSTPRIM ");
+        #end
+        #if($MSTKRUSKAL)
+            configuration.append("MSTKRUSKAL ");
+        #end
+        #if($SHORTESTPATH)
+            configuration.append("SHORTESTPATH ");
+        #end
+        System.out.println("Input configuration: " + configuration);
+    } // of displayConfigurationValues
+}

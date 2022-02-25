@@ -4,7 +4,6 @@
  * @author Roberto E. Lopez-Herrejon
  * ETS-LOGTI
  */
-package target;
 
 // Note: Code for UNDIRECTED and DIRECTED is the same. Changes at places are only when graphs have weights.
 

@@ -4,12 +4,10 @@
  * @author Roberto E. Lopez-Herrejon
  * ETS-LOGTI
  */
-package target;
-
 import java.io.*;
 
 /**
- * Main class for GPL example
+ * CodeGenerator class for GPL example
  * @author Roberto E. Lopez-Herrejon
  * @feature Prog 
  */
@@ -58,17 +56,17 @@ public class Driver {
         System.out.println("Benchmark file read");
         
         // Step 4: reserves space for vertices, edges and weights
-        Vertex V[] = new  Vertex[num_vertices];
-        int startVertices[] = new int[num_edges];
-        int endVertices[] = new int[num_edges];
+        Vertex[] V             = new  Vertex[num_vertices];
+        int[]    startVertices = new int[num_edges];
+        int[]    endVertices   = new int[num_edges];
         
         #if($WEIGHTED)
         // feature WEIGHTED
-        int weights[] = new int[num_edges];
+        int[] weights = new int[num_edges];
         #end
         
-        // Step 5: creates the vertices objects 
-        int i=0;
+        // Step 5: creates the vertices objects
+        int i;
         for ( i=0; i<num_vertices; i++ ) {
             V[i] = new Vertex().assignName( "v"+i );
             g.addVertex( V[i] );
@@ -91,7 +89,7 @@ public class Driver {
         try {
         		for( i=0; i<num_edges; i++ ) weights[i] = g.readNumber();
         	} catch ( IOException e ) {
-               System.out.println("Error while reading the weigths");
+               System.out.println("Error while reading the weights");
         	   System.exit(0);
         	}
         // --- feature WEIGHTED
@@ -127,4 +125,4 @@ public class Driver {
     } // main method
 
 
- }   // of class Main
+ }   // of class CodeGenerator

@@ -16,7 +16,7 @@ public class TransposeWorkSpace extends WorkSpace {
     }
         
     public void preVisitAction( Vertex v ) {
-        if (v.visited!=true) 
+        if (!v.visited)
         	v.strongComponentNumber = SCCCounter;
     }
 
