@@ -1,0 +1,58 @@
+/**
+ * GPL Example
+ * Runtime variability and monolithic implementation
+ * @author Roberto E. Lopez-Herrejon
+ * ETS-LOGTI
+ */
+package target;
+
+// Note: Code for UNDIRECTED and DIRECTED is the same. Changes at places are only when graphs have weights.
+
+// *************************************************************************
+
+/**
+ * Class the represents the edges of the graph
+ * @author rlopez
+ *
+ */
+public class Edge extends Neighbor {
+    public  Vertex start;
+        
+    public Edge( Vertex the_start, Vertex the_end) {
+        start = the_start;
+        end = the_end;
+    }
+        
+   public void adjustAdorns(Edge the_edge) {
+      #if($WEIGHTED)
+       weight = the_edge.weight;
+      #end
+   }
+        
+    public void display() {
+      System.out.print( " start=" + start.name + " end=" + end.name );   
+      #if($WEIGHTED)
+      System.out.print( " weight=" + weight );
+      #end
+      System.out.println();        
+    } 
+     
+    
+    #if($WEIGHTED)
+    public int weight;
+    
+    public Edge( Vertex the_start,  Vertex the_end, int the_weight ) {
+    	this(the_start,the_end );
+        weight = the_weight;
+    }
+    #end
+    
+    public String toString() {   	
+        String result = " start=" + start.name + " end=" + end.name;
+        #if($WEIGHTED)
+        result = result + " weight=" + weight;
+        #end       
+        return result;
+    }
+        
+} // of Edge
