@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Generate code from template 2" type="Application" factoryName="Application" folderName="Code generation">
+    <option name="MAIN_CLASS_NAME" value="CodeGenerator" />
+    <module name="sources" />
+    <option name="PROGRAM_PARAMETERS" value="./src/main/resources/configs/prod2.conf" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="*" />
+        <option name="ENABLED" value="false" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Clean-Sources" />
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

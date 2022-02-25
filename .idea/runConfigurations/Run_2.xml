@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run 2" type="Application" factoryName="Application" folderName="Run pipeline">
+    <option name="MAIN_CLASS_NAME" value="Main" />
+    <module name="sources" />
+    <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/target/classes/graphs/CCExample.bench v0" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Generate code from template 2" run_configuration_type="Application" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Wait-Indexing" />
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
