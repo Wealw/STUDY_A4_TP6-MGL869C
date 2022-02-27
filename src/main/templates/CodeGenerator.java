@@ -197,7 +197,7 @@ public class CodeGenerator {
         // *********
         // Start the verification of the conditions
         // Only one of DIRECTED and UNDIRECTED can be selected
-        if (!(DIRECTED ^ UNDIRECTED))
+        if (DIRECTED == UNDIRECTED)
             consistent = false;
         // Only one search method of DFS and BFS can be selected at most
         // true, when both unselected (search is optional), and one of two selected
@@ -437,8 +437,8 @@ public class CodeGenerator {
                 // demo.WorkSpace is selected whenever BFS or DFS are selected. Thus if neither is selected and the demo.WorkSpace.java.vm is found, then skip
                 if ((templateFilePath.indexOf(WS) != -1) && !CodeGenerator.DFS && !CodeGenerator.BFS)
                     continue;
-                //if ((templateFilePath.indexOf(PrimDep) != -1) && !CodeGenerator.MSTPRIM)
-                //    continue;
+                if ((templateFilePath.indexOf(PrimDep) != -1) && !CodeGenerator.MSTPRIM)
+                    continue;
                 // Adds the name of the template file
                 fileNames.add(templateFilePath);
             } // of all the files in the templates directory

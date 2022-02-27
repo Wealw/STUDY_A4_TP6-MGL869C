@@ -53,8 +53,6 @@ public class Vertex {
     }
     
     public void display() {
-
-
         #if($SHORTESTPATH)
             // @feature SHORTESTPATH
             System.out.print("Pred " + predecessor + " DWeight " + dweight + " ");
@@ -177,7 +175,6 @@ public class Vertex {
         // ---
     #end
 
-    
     #if($DFS)
         // @feature DFS
         public void dftNodeSearch(WorkSpace w) {
