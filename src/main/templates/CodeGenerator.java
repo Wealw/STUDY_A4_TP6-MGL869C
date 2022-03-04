@@ -403,7 +403,6 @@ public class CodeGenerator {
     private static final String numberWS     = "NumberWorkSpace.java.vm";
     private static final String transposeWS  = "TransposeWorkSpace.java.vm";
     private static final String WS           = "WorkSpace.java.vm";
-    private static final String PrimDep      = "MSTPrimQueueComparator.java.vm";
     
     /**
      * This method reads the names of the files in the default template directory and eliminates from
@@ -436,8 +435,6 @@ public class CodeGenerator {
                     continue;
                 // demo.WorkSpace is selected whenever BFS or DFS are selected. Thus if neither is selected and the demo.WorkSpace.java.vm is found, then skip
                 if ((templateFilePath.indexOf(WS) != -1) && !CodeGenerator.DFS && !CodeGenerator.BFS)
-                    continue;
-                if ((templateFilePath.indexOf(PrimDep) != -1) && !CodeGenerator.MSTPRIM)
                     continue;
                 // Adds the name of the template file
                 fileNames.add(templateFilePath);
